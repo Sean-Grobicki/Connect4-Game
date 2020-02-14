@@ -32,14 +32,15 @@
             // 
             // BoardUserCtr
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.BackgroundImage = global::Connect4_v10.Properties.Resources.Board;
             this.DoubleBuffered = true;
-            this.Location = new System.Drawing.Point(347, 110);
+            this.Location = new System.Drawing.Point(500, 200);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "BoardUserCtr";
-            this.Size = new System.Drawing.Size(839, 750);
+            this.Size = new System.Drawing.Size(840, 739);
             this.Load += new System.EventHandler(this.BoardUserCtr_Load);
             this.ResumeLayout(false);
 

@@ -18,6 +18,7 @@ namespace Connect4_v10
         private BoardUserCtr buc = new BoardUserCtr();
         private List<int> moveHistory = new List<int>();
         private bool _isSP;
+        private int _depth;
 
         public Connect_4(User u1,User u2,bool isSP)// Constructor used if its multiplayer as there are two human users.
         {
@@ -29,13 +30,13 @@ namespace Connect4_v10
             _u1.CurrentUser = true;
             playerTurn.Text = "Player 1";
         }
-        public Connect_4(User u1, User u2,int pTurn,List<int> mh)//Constructor used if its a multiplayer loaded game as movehistory as well as two users loaded.
+        public Connect_4(User u1, User u2,int pTurn,List<int> mh,bool isSP)//Constructor used if its a multiplayer loaded game as movehistory as well as two users loaded.
         {
             InitializeComponent();
             buc.Parent = this;
             _u1 = u1;
             _u2 = u2;
-            _isSP = false;
+            _isSP = isSP;
             bool move = true;
             if (pTurn == 1)
             {
@@ -47,7 +48,7 @@ namespace Connect4_v10
             {
                 _u2.CurrentUser = true;
                 _u1.CurrentUser = false;
-                playerTurn.Text = "Player 2";
+                playerTurn.Text = (_isSP ? "AI" : "Player 2");
             }
             foreach (int c in mh)// Will fill up the board as well as the counter history to represent the board and also allow redos once reloaded.
             {
@@ -116,7 +117,7 @@ namespace Connect4_v10
                         }
                         else
                         {
-                            playerTurn.Text = (_u1.CurrentUser ? "Player 1" : "Player 2");
+                            playerTurn.Text = "Player " + (_u1.CurrentUser ? "1" : "2");
                         }
                     }
                 }
@@ -129,6 +130,7 @@ namespace Connect4_v10
 
         public void makeAINextTurn(AI ai)
         {
+            _depth = ai.Depth;
             if (_u1.CurrentUser)
             {
                 playerTurn.Text = "Player 1";
@@ -176,7 +178,7 @@ namespace Connect4_v10
             if (_isSP)
 	        {
                 //change for difficuly
-		        saveGame sg = new saveGame(_board.Board1,1,_isSP,_u1.CounterColour,_u2.CounterColour,moveHistory,3);//Opens the save game form where you name your game to save it.
+		        saveGame sg = new saveGame(_board.Board1,1,_isSP,_u1.CounterColour,_u2.CounterColour,moveHistory,_depth);//Opens the save game form where you name your game to save it.
                 sg.Show();
                 sg.Closed += (s, args) => this.Close();
                 this.Hide();
@@ -234,14 +236,7 @@ namespace Connect4_v10
                 }
                 else
                 {
-                    if (_u1.CurrentUser)
-                    {
-                        playerTurn.Text = "Player 1";
-                    }
-                    else
-                    {
-                        playerTurn.Text = "Player 2";
-                    }
+                    playerTurn.Text = "Player " + (_u1.CurrentUser ? "1" : "2");
                 }
             }  
         }

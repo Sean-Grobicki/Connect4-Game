@@ -44,7 +44,7 @@ namespace Connect4_v10
 
         private void save_Click(object sender, EventArgs e)
         {
-            OleDbConnection c = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='C:\Users\Sean\Desktop\MAJOR PROJECT\Connect4 v10\Resources\Saved Games.accdb'");
+            OleDbConnection c = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source = '..\..\Resources\Saved Games.accdb'");
             OleDbCommand sql = new OleDbCommand();
             sql.CommandType = CommandType.Text;
             sql.CommandText = @"INSERT INTO Game(PlayerTurn,isSP,P1CounterNum,p2CounterNum,Difficulty,GameName) VALUES(?,?,?,?,?,?)";// will put all the information about the game into the database to load at a later date.

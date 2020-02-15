@@ -52,7 +52,7 @@ namespace Connect4_v10
 
         private void ld_Click(object sender, EventArgs e)
         {
-            OleDbConnection c = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='C:\Users\Sean\Desktop\MAJOR PROJECT\Connect4 v10\Resources\Saved Games.accdb'");
+            OleDbConnection c = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='..\..\Resources\Saved Games.accdb'");
             c.Open();
             OleDbDataAdapter da1 = new OleDbDataAdapter(@"SELECT Columns FROM MoveHistory WHERE GameName = ?", c);//Loads all the movehistory from that game from the database.
             OleDbParameter p1 = new OleDbParameter();
@@ -82,7 +82,7 @@ namespace Connect4_v10
                 {
                     AI ai = new AI((int)r[@"P2CounterNum"]);
                     ai.Depth = (int)r[@"Difficulty"];
-                    Connect_4 c4 = new Connect_4(u1, ai, 1 ,mh);//Opens the connect 4 game with the two users and movehistory if singleplayer.
+                    Connect_4 c4 = new Connect_4(u1, ai, 1 ,mh,true);//Opens the connect 4 game with the two users and movehistory if singleplayer.
                     this.Hide();
                     c4.Show();
                 }
@@ -90,7 +90,7 @@ namespace Connect4_v10
                 {
                     User u2 = new User((int)r[@"P2CounterNum"]);
                     int pt = (int)r[@"PlayerTurn"];
-                    Connect_4 c4 = new Connect_4(u1, u2,pt, mh);//Opens the connect 4 game with two users and movehistory when multiplayer.
+                    Connect_4 c4 = new Connect_4(u1, u2,pt, mh,false);//Opens the connect 4 game with two users and movehistory when multiplayer.
                     this.Hide();
                     c4.Show();
                 }

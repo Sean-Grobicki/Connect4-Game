@@ -24,33 +24,37 @@ namespace Connect4_v10
         private void easy_Click(object sender, EventArgs e)
         {
             _ai.Depth = 1;
-            Connect_4 f = new Connect_4(_u1, _ai);//Will open the game assigning the difficulty to the ai depending on which button the user clicked. Each number represents a different difficulty.  
+            Connect_4 f = new Connect_4(_u1, _ai,true);//Will open the game assigning the difficulty to the ai depending on which button the user clicked. Each number represents a different difficulty.  
             f.Show();
-            this.Close();
+            f.Closed += (s, args) => this.Close();
+            this.Hide();
         }
 
         private void medium_Click(object sender, EventArgs e)
         {
             _ai.Depth = 2;
-            Connect_4 f = new Connect_4(_u1, _ai);
+            Connect_4 f = new Connect_4(_u1, _ai,true);
             f.Show();
-            this.Close();
+            f.Closed += (s, args) => this.Close();
+            this.Hide();
         }
 
         private void hard_Click(object sender, EventArgs e)
         {
             _ai.Depth = 3;
-            Connect_4 f = new Connect_4(_u1, _ai);
+            Connect_4 f = new Connect_4(_u1, _ai,true);
             f.Show();
-            this.Close();
+            f.Closed += (s, args) => this.Close();
+            this.Hide();
         }
 
         private void home_Click(object sender, EventArgs e)
         {
             Main_Menu m = new Main_Menu();
             m.Show();
-            this.Close();
+            m.Closed += (s, args) => this.Close();
+            this.Hide();
         }
-
     }
+
 }

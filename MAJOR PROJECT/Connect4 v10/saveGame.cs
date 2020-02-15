@@ -72,7 +72,8 @@ namespace Connect4_v10
             }
             Main_Menu m = new Main_Menu();// will bring you back to the main menu once saved.
             m.Show();
-            this.Close();
+            m.Closed += (s, args) => this.Close();
+            this.Hide();
         }
 
         private void saveGame_Load(object sender, EventArgs e)

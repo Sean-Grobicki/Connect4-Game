@@ -20,15 +20,17 @@ namespace Connect4_v10
         private void Singleplayer_Click(object sender, EventArgs e)
         {
             Counter_Chooser f = new Counter_Chooser(false);//If singleplayer chosen then will open counter chooser with false for singleplayer.
-            this.Hide();
+            f.Closed += (s, args) => this.Close();
             f.Show();
+            this.Hide();
         }
 
         private void Multiplayer_Click(object sender, EventArgs e)
         {
             Counter_Chooser f = new Counter_Chooser(true);//If multiplayer then will open counter chooser with true to represent multiplayer.
-            this.Hide();
+            f.Closed += (s, args) => this.Close();
             f.Show();
+            this.Hide();
         }
 
         private void loadGame_Click(object sender, EventArgs e)
@@ -80,7 +82,7 @@ namespace Connect4_v10
                 {
                     AI ai = new AI((int)r[@"P2CounterNum"]);
                     ai.Depth = (int)r[@"Difficulty"];
-                    Connect_4 c4 = new Connect_4(u1, ai, mh);//Opens the connect 4 game with the two users and movehistory if singleplayer.
+                    Connect_4 c4 = new Connect_4(u1, ai, 1 ,mh);//Opens the connect 4 game with the two users and movehistory if singleplayer.
                     this.Hide();
                     c4.Show();
                 }

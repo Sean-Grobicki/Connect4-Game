@@ -80,17 +80,19 @@ namespace Connect4_v10
                     return;
                 }
                 User p2 = new User(_colourNumber);
-                Connect_4 f = new Connect_4(_p1, p2);//If its the second user on multiplayer they will both be assigned the colours and the game will be open.
-                this.Close();
+                Connect_4 f = new Connect_4(_p1, p2,false);//If its the second user on multiplayer they will both be assigned the colours and the game will be open.
+                f.Closed += (s, args) => this.Close();
                 f.Show();
+                this.Hide();
             }
             else if (_isMP && _playerCount == 0)
             {
                 _playerCount++;
                 User p1 = new User(_colourNumber);
                 Counter_Chooser c = new Counter_Chooser(_isMP,_playerCount, p1,p1.CounterColour);//If its multiplayer but first user then player 1s counter colour assigned and counter chooser called again for player 2.
-                this.Close();
+                c.Closed += (s, args) => this.Close();
                 c.Show();
+                this.Hide();
 
             }
             else
@@ -103,8 +105,9 @@ namespace Connect4_v10
                 User player1 = new User(_colourNumber);
                 AI player2 = new AI(userCounter);
                 Difficulty f = new Difficulty(player1, player2);// The ai and user are assingned there colours then the difficulty form is called.
+                f.Closed += (s, args) => this.Close();
                 f.Show();
-                this.Close();
+                this.Hide();
                 
             }  
         }
@@ -112,8 +115,9 @@ namespace Connect4_v10
         private void home_Click(object sender, EventArgs e)
         {
             Main_Menu m = new Main_Menu();//Will go back to home menu if clicked.
+            m.Closed += (s, args) => this.Close();
+            this.Hide();
             m.Show();
-            this.Close();
         }
 
         }

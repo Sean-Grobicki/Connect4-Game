@@ -126,13 +126,7 @@ namespace Connect4_v10
             {
                 Won.Visible = true;
                 Won.Text = "Nobody has won and board is full. Click here to Continue. ";
-                button1.Visible = false;
-                button2.Visible = false;
-                button3.Visible = false;
-                button4.Visible = false;
-                button5.Visible = false;
-                button6.Visible = false;
-                button7.Visible = false;
+                buc.stopGame();
             }
             else
             {
@@ -188,13 +182,7 @@ namespace Connect4_v10
                     {
                         Won.Visible = true;
                         Won.Text = "Player " + (_u1.CurrentUser ? "1" : "2") + " has won. Click here to continue.";
-                        button1.Visible = false;
-                        button2.Visible = false;
-                        button3.Visible = false;
-                        button4.Visible = false;
-                        button5.Visible = false;
-                        button6.Visible = false;
-                        button7.Visible = false;
+                        buc.stopGame();
                     }
                     else
                     {
@@ -214,13 +202,7 @@ namespace Connect4_v10
                                 {
                                     Won.Visible = true;
                                     Won.Text = "Nobody has won and board is full. Click here to Continue. ";
-                                    button1.Visible = false;
-                                    button2.Visible = false;
-                                    button3.Visible = false;
-                                    button4.Visible = false;
-                                    button5.Visible = false;
-                                    button6.Visible = false;
-                                    button7.Visible = false;
+                                    buc.stopGame();
                                 }
                                 else
                                 {
@@ -254,11 +236,11 @@ namespace Connect4_v10
             Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)// Depending on which button is clicked will decide the users move.
+        public void button1_Click(object sender, EventArgs e)// Depending on which button is clicked will decide the users move.
         {
             makeMove(0);
         }
-        private void button2_Click(object sender, EventArgs e)
+        public void button2_Click(object sender, EventArgs e)
         {
             makeMove(1);
         }

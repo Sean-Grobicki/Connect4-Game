@@ -80,7 +80,6 @@ namespace Connect4_v10
                 u2.CurrentUser = !u2.CurrentUser;
             }
         }
-        
 
     }
 }

@@ -149,7 +149,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1233, 857);
+            this.ClientSize = new System.Drawing.Size(1250, 857);
             this.Controls.Add(this.undo);
             this.Controls.Add(this.home);
             this.Controls.Add(this.Won);

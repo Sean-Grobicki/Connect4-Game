@@ -20,6 +20,8 @@ namespace Connect4_v10
         private BoardUserCtr buc = new BoardUserCtr();
         private List<int> moveHistory = new List<int>();
 
+
+
         public Connect_4(User u1,User u2)// Constructor used if its multiplayer as there are two human users.
         {
             InitializeComponent();
@@ -53,13 +55,13 @@ namespace Connect4_v10
                 if (move)//will switch between users so corrrect colour counters are placed.
 	            {
                     int r = _u1.playerMove(c,_board.Board1);
-		            buc.addCounter(_board.Board1, c, _u1.CounterColour, r);
+		            buc.addCounter(c, _u1.CounterColour, r);
                     _board.Board1[r, c] = _u1.CounterColour;
 	            }
                 else
                 {
                     int r = _ai.playerMove(c, _board.Board1);
-                    buc.addCounter(_board.Board1, c, _ai.CounterColour, r);
+                    buc.addCounter(c, _ai.CounterColour, r);
                     _board.Board1[r, c] = _ai.CounterColour;
                 }
                 move = !move;
@@ -93,13 +95,13 @@ namespace Connect4_v10
                 if (move)//will switch between users so corrrect colour counters are placed.
                 {
                     int r = _u1.playerMove(c, _board.Board1);
-                    buc.addCounter(_board.Board1, c, _u1.CounterColour,r );
+                    buc.addCounter(c, _u1.CounterColour,r );
                     _board.Board1[r,c] = _u1.CounterColour;
                 }
                 else
                 {
                     int r = u2.playerMove(c, _board.Board1);
-                    buc.addCounter(_board.Board1, c, _u2.CounterColour, r);
+                    buc.addCounter(c, _u2.CounterColour, r);
                     _board.Board1[r,c] = _u2.CounterColour;
                 }
                 move = !move;
@@ -114,8 +116,14 @@ namespace Connect4_v10
             this.WindowState = FormWindowState.Maximized;
             Won.Top += 20;
             Won.Left = buc.Left + 200;
+
+            buc.moveIsMade += new System.EventHandler(this.move_Made);
         }
 
+        private void move_Made(object sender, EventArgs e)
+        {
+            makeMove(buc.getMove());
+        }
         private void makeMove(int col)// called after either button pressed or ais decided and is passed the column of where moves going to be placed.
         {
             int counterColour = 0;
@@ -176,7 +184,7 @@ namespace Connect4_v10
                 }
                 if (moveWorked)// Will only be passed if the move was valid.
                 {
-                    buc.addCounter(_board.Board1, col, counterColour, row);//adds the counter visually onto the board.
+                    buc.addCounter(col, counterColour, row);//adds the counter visually onto the board.
                     moveHistory.Add(col);//adds move to the movehsitory.
                     if (_board.checkWin(col, row, counterColour))//Will check if the 
                     {
@@ -234,39 +242,6 @@ namespace Connect4_v10
         private void exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        public void button1_Click(object sender, EventArgs e)// Depending on which button is clicked will decide the users move.
-        {
-            makeMove(0);
-        }
-        public void button2_Click(object sender, EventArgs e)
-        {
-            makeMove(1);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            makeMove(2);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            makeMove(3);
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            makeMove(4);
-        }
-        private void button6_Click(object sender, EventArgs e)
-        {
-            makeMove(5);
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            makeMove(6);
         }
 
         private void save_Click(object sender, EventArgs e)// Called if save button clicked.
@@ -337,6 +312,7 @@ namespace Connect4_v10
                 }
             }  
         }
+
 
         private void backMove()
         {

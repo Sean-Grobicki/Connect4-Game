@@ -65,34 +65,34 @@ namespace Connect4_v10
             int score = 0;
             TreeNode[] childNodes = node.moves;
             for (int i = 0; i < childNodes.Length; i++)
-                if (childNodes[i] != null)            {
+            {
+                if (childNodes[i] != null)
                 {
                     if (yourMove)
                     {
                         score += childNodes[i].Score + getScores(childNodes[i], !yourMove);
                     }
-                    else 
+                    else
                     {
-                            if (childNodes[i].checkWin())
+                        if (childNodes[i].checkWin())
+                        {
+                            if (childNodes[i].Col == i)
                             {
-
-                                if (childNodes[i].PrevCol == i)// prevents the ai from placing to allow 4 in a rows to get blocked.
-                                {
-                                    return -3000;
-                                }
-                                else
-                                {
-                                    return 3000;
-                                }
-
+                                score -= 3000;
                             }
                             else
                             {
-                                score += (-childNodes[i].Score) + getScores(childNodes[i], !yourMove);// recursively calls method so scores for each are added upwards.
+                                score += 3000;
                             }
+                        }
+                        else
+                        {
+                            score += (-childNodes[i].Score) + getScores(childNodes[i], !yourMove);// recursively calls method so scores for each are added upwards.
+                        }
                     }
                 }
             }
+            Console.WriteLine(score);
             return score;
         }
 

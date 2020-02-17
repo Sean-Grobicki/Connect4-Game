@@ -84,6 +84,7 @@ namespace Connect4_v10
                     ai.Depth = (int)r[@"Difficulty"];
                     Connect_4 c4 = new Connect_4(u1, ai, 1 ,mh,true);//Opens the connect 4 game with the two users and movehistory if singleplayer.
                     this.Hide();
+                    c4.Closed += (s, args) => this.Close();
                     c4.Show();
                 }
                 else
@@ -92,6 +93,7 @@ namespace Connect4_v10
                     int pt = (int)r[@"PlayerTurn"];
                     Connect_4 c4 = new Connect_4(u1, u2,pt, mh,false);//Opens the connect 4 game with two users and movehistory when multiplayer.
                     this.Hide();
+                    c4.Closed += (s, args) => this.Close();
                     c4.Show();
                 }
 

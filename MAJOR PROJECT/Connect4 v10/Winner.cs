@@ -27,7 +27,8 @@ namespace Connect4_v10
         {
             Main_Menu m = new Main_Menu();
             m.Show();
-            this.Close();
+            m.Closed += (s, args) => this.Close();
+            this.Hide();
         }
 
     }

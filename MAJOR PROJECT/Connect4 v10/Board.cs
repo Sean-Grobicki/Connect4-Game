@@ -67,20 +67,11 @@ namespace Connect4_v10
             }
             return false;
         }
-        public void changeUser(User u1,User u2,AI ai,bool isSP)// Changes the user by changing the current user variable indise each user. 
+        public void changeUser(User u1,User u2)// Changes the user by changing the current user variable indise each user. 
         {
-            if (isSP)
-            {
-                u1.CurrentUser = !u1.CurrentUser;
-                ai.CurrentUser = !ai.CurrentUser;
-            }
-            else
-            {
                 u1.CurrentUser = !u1.CurrentUser;
                 u2.CurrentUser = !u2.CurrentUser;
-            }
         }
-        
 
     }
 }

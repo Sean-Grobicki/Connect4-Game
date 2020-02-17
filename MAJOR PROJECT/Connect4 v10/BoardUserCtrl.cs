@@ -18,14 +18,17 @@ namespace Connect4_v10
         private Point col5 = new Point(483,605);
         private Point col6 = new Point(603,605);
         private Point col7 = new Point(723,605);
-        private List<Counter> counterHistory = new List<Counter>();
+        private int moveMade;
 
+        public EventHandler moveIsMade;
+
+        private List<Counter> counterHistory = new List<Counter>();
         public BoardUserCtr()
         {
             InitializeComponent();
         }
 
-        public void addCounter(int[,] board,int col,int counterColour,int row)
+        public void addCounter(int col,int counterColour,int row)
         {
             Point correctCol = new Point();
             switch (col)// chooses coordinate to modify depending on the column.
@@ -45,7 +48,6 @@ namespace Connect4_v10
                 case 6: correctCol = col7;
                     break;
 	        }
-
             Point pos = new Point();
             Counter c = new Counter(counterColour);
             pos.X = correctCol.X;                        
@@ -58,6 +60,8 @@ namespace Connect4_v10
             counterHistory.Add(c);// adds the counter to counter history so it can be removed if needed.
         }
 
+
+
         public void removeCounter()
         {
             counterHistory[counterHistory.Count - 1].Visible = false;// will remove the counter from the board and will remove it from the counter history.
@@ -67,6 +71,64 @@ namespace Connect4_v10
         private void BoardUserCtr_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void stopGame()
+        {
+            button1.Visible = false;
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
+            button5.Visible = false;
+            button6.Visible = false;
+            button7.Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            moveMade = 0;
+            moveIsMade.Invoke(sender, e);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            moveMade = 1;
+            moveIsMade.Invoke(sender, e);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            moveMade = 2;
+            moveIsMade.Invoke(sender, e);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            moveMade = 3;
+            moveIsMade.Invoke(sender, e);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            moveMade = 4;
+            moveIsMade.Invoke(sender, e);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            moveMade = 5;
+            moveIsMade.Invoke(sender, e);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            moveMade = 6;
+            moveIsMade.Invoke(sender,e);
+        }
+
+        public int getMove()
+        {
+            return moveMade;
         }
     }
 }

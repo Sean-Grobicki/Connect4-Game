@@ -14,13 +14,16 @@ namespace Connect4_v10
         private int counterColour;
         private bool yourMove;
         private int depth;
+        private int prevCol;
 
         public TreeNode[] moves = new TreeNode[7];
 
         public int Score { get => score; set => score = value; }
+        public int PrevCol { get => prevCol; set => prevCol = value; }
 
-        public TreeNode(int[,] board, int c, int r, bool yourMove, int cC, int oppCounterColour,int depth)// Constructor for none root node
+        public TreeNode(int[,] board, int c, int r, bool yourMove, int cC, int oppCounterColour,int depth,int prevCol)// Constructor for none root node
         {
+            this.PrevCol = prevCol;
             this.yourMove = yourMove;
             this.depth = depth;
             if (yourMove)
@@ -47,6 +50,7 @@ namespace Connect4_v10
 
         public TreeNode(int[,] board,int cC, int oppCounterColour,int depth)// constructor for root node.
         {
+            col = -1;
             this.depth = depth;
             copyBoard(board);
             createBranches(false,cC, oppCounterColour);
@@ -59,7 +63,7 @@ namespace Connect4_v10
                 int r = playerMove(moveBoard,i);
                 if (r != -1)
                 {
-                    moves[i] = new TreeNode(moveBoard, i, r , !yourMove, cC, oppCounterColour, depth - 1);// Will create a new node for every possible move afterwards.
+                    moves[i] = new TreeNode(moveBoard, i, r , !yourMove, cC, oppCounterColour, depth - 1,col);// Will create a new node for every possible move afterwards.
                 }
             }
         }

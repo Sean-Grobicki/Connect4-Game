@@ -27,11 +27,10 @@ namespace Connect4_v10
         public int bestMove(int[,] board, int oppCounterColour)
         {
             root = new TreeNode(board,_counterColour,oppCounterColour,Depth); // creates the tree storing moves with the root being the board with no move
-            collectScores();
-            return Array.IndexOf(moveScores, moveScores.Max());// returns max in the array of scores meaning it will be optimum score.
+            return collectScores();
         }
 
-        public void collectScores()// Called for first layers of branches so can be stored in array.
+        public int collectScores()// Called for first layers of branches so can be stored in array.
         {
             moveScores = new int[7];
             TreeNode[] childNodes = root.moves;
@@ -41,7 +40,7 @@ namespace Connect4_v10
                 {
                     if (childNodes[i].checkWin())// Override added to make sure they place to win if they can.
                     {
-                        moveScores[i] = 5000;
+                        return i;
                     }
                     else
                     {
@@ -53,6 +52,12 @@ namespace Connect4_v10
                     moveScores[i] = -120000;
                 }
             }
+            foreach (int i in moveScores)
+            {
+                Console.Write(i + ", ");
+            }
+            Console.WriteLine();
+            return Array.IndexOf(moveScores, moveScores.Max());// returns max in the array of scores meaning it will be optimum score.
         }
 
         public int getScores(TreeNode node,bool yourMove)// collects the scores recursively 
@@ -68,11 +73,23 @@ namespace Connect4_v10
                     }
                     else 
                     {
-                        if (childNodes[i].checkWin())
-                        {
-                            score -= 3000;
-                        }
-                       score += (-childNodes[i].Score) + getScores(childNodes[i], !yourMove);// recursively calls method so scores for each are added upwards.
+                            if (childNodes[i].checkWin())
+                            {
+
+                                if (childNodes[i].PrevCol == i)// prevents the ai from placing to allow 4 in a rows to get blocked.
+                                {
+                                    return -3000;
+                                }
+                                else
+                                {
+                                    return 3000;
+                                }
+
+                            }
+                            else
+                            {
+                                score += (-childNodes[i].Score) + getScores(childNodes[i], !yourMove);// recursively calls method so scores for each are added upwards.
+                            }
                     }
                 }
             }

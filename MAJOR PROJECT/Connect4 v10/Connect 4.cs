@@ -20,7 +20,7 @@ namespace Connect4_v10
         private bool _isSP;
         private int _depth;
 
-        public Connect_4(User u1,User u2,bool isSP)// Constructor used if its multiplayer as there are two human users.
+        public Connect_4(User u1,User u2,bool isSP)// Constructor called if it's a new game
         {
             InitializeComponent();
             _u1 = u1;
@@ -30,7 +30,7 @@ namespace Connect4_v10
             _u1.CurrentUser = true;
             playerTurn.Text = "Player 1";
         }
-        public Connect_4(User u1, User u2,int pTurn,List<int> mh,bool isSP)//Constructor used if its a multiplayer loaded game as movehistory as well as two users loaded.
+        public Connect_4(User u1, User u2,int pTurn,List<int> mh,bool isSP)//Constructor called if it's a loaded game.
         {
             InitializeComponent();
             buc.Parent = this;
@@ -76,7 +76,7 @@ namespace Connect4_v10
             this.WindowState = FormWindowState.Maximized;
             Won.Top += 20;
             Won.Left = buc.Left + 200;
-            buc.moveIsMade += new System.EventHandler(this.move_Made);
+            buc.moveIsMade += new System.EventHandler(this.move_Made); // Allows the buttons to be inside user control.
         }
 
         private void move_Made(object sender, EventArgs e)
@@ -178,7 +178,7 @@ namespace Connect4_v10
             if (_isSP)
 	        {
                 //change for difficuly
-		        saveGame sg = new saveGame(_board.Board1,1,_isSP,_u1.CounterColour,_u2.CounterColour,moveHistory,_depth);//Opens the save game form where you name your game to save it.
+		        saveGame sg = new saveGame(_board.Board1,1,_isSP,_u1.CounterColour,_u2.CounterColour,moveHistory,_depth);//Opens the save game form where you name your game to save it for singleplayer.
                 sg.Show();
                 sg.Closed += (s, args) => this.Close();
                 this.Hide();
@@ -190,7 +190,7 @@ namespace Connect4_v10
 	            {
 		            pt = 2;
 	            }
-                saveGame sg = new saveGame(_board.Board1,pt,_isSP,_u1.CounterColour,_u2.CounterColour,moveHistory,-1);
+                saveGame sg = new saveGame(_board.Board1,pt,_isSP,_u1.CounterColour,_u2.CounterColour,moveHistory,-1);//Opens the save game form where you name your game to save it for multiplayer.
                 sg.Show();
                 sg.Closed += (s, args) => this.Close();
                 this.Hide();
@@ -216,7 +216,7 @@ namespace Connect4_v10
             }
         }
 
-        private void home_Click(object sender, EventArgs e)
+        private void home_Click(object sender, EventArgs e)// Takes you to main menu form.
         {
             Main_Menu m = new Main_Menu();
             m.Show();

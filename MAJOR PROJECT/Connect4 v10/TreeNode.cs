@@ -19,7 +19,7 @@ namespace Connect4_v10
 
         public int Score { get => score; set => score = value; }
 
-        public TreeNode(int[,] board, int c, int r, bool yourMove, int cC, int oppCounterColour,int depth)
+        public TreeNode(int[,] board, int c, int r, bool yourMove, int cC, int oppCounterColour,int depth)// Constructor for none root node
         {
             this.yourMove = yourMove;
             this.depth = depth;
@@ -34,18 +34,18 @@ namespace Connect4_v10
             col = c;
             row = r;
             copyBoard(board);
-            if (row != -1)
+            if (row != -1)// makes sure the move  is valid
             {
                 moveBoard[row, col] = counterColour;
             }
             if (depth > 0)
             {
-                createBranches(yourMove,cC,oppCounterColour);
+                createBranches(yourMove,cC,oppCounterColour);// creates the branches which represent all the moves that can be made next turn.
             }
             Score = calculateScore();
         }
 
-        public TreeNode(int[,] board,int cC, int oppCounterColour,int depth)
+        public TreeNode(int[,] board,int cC, int oppCounterColour,int depth)// constructor for root node.
         {
             this.depth = depth;
             copyBoard(board);
@@ -59,11 +59,11 @@ namespace Connect4_v10
                 int r = playerMove(moveBoard,i);
                 if (r != -1)
                 {
-                    moves[i] = new TreeNode(moveBoard, i, r , !yourMove, cC, oppCounterColour, depth - 1);
+                    moves[i] = new TreeNode(moveBoard, i, r , !yourMove, cC, oppCounterColour, depth - 1);// Will create a new node for every possible move afterwards.
                 }
             }
         }
-        public void copyBoard(int[,] board)
+        public void copyBoard(int[,] board)// creates a local copy of the board for this node to use.
         {
             moveBoard = new int[6,7];
             for (int i = 0; i < 6; i++)
@@ -77,7 +77,7 @@ namespace Connect4_v10
 
         public int calculateScore()
         {
-            double score = checkAdjacent(0, 1) + checkAdjacent(1, 0) + checkAdjacent(1, 1) + checkAdjacent(-1, 1) + checkAdjacent(1, -1) + checkAdjacent(-1, -1);
+            double score = checkAdjacent(0, 1) + checkAdjacent(1, 0) + checkAdjacent(1, 1) + checkAdjacent(-1, 1) + checkAdjacent(1, -1) + checkAdjacent(-1, -1);// Calls all the adjacent tiles to check if they have adjacent counters in all direction.
             return (int)score;
         }
 
@@ -109,7 +109,7 @@ namespace Connect4_v10
             }
             return -1;
         }
-        public bool checkWin()
+        public bool checkWin()// Checks if user can win in this move.
         {
             if (Board.checkWin(col, row, counterColour, moveBoard))
             {
